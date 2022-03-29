@@ -20,3 +20,18 @@ And it also fetches a product list from jd.com every time a session begins.
 
 Please **write a report** on the performance differences you notices among the above tasks.
 
+# horizontal
+
+cpus=0.5
+
+D:\Softwares\Gatling\gatling-charts-highcharts-bundle-3.7.6\results\gatlingtestsimulationonwebpos-20220329141614920\index.html
+
+cpus=1
+
+file:///D:/Softwares/Gatling/gatling-charts-highcharts-bundle-3.7.6/results/gatlingtestsimulationonwebpos-20220329141048198/index.html
+
+cpus=2 
+
+~~D:\Softwares\Gatling\gatling-charts-highcharts-bundle-3.7.6\results\gatlingtestsimulationonwebpos-20220329141740646\index.html  (seems baned by JD)~~
+
+D:\Softwares\Gatling\gatling-charts-highcharts-bundle-3.7.6\results\gatlingtestsimulationonwebpos-20220329142819937\index.html
