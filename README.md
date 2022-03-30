@@ -20,7 +20,9 @@ And it also fetches a product list from jd.com every time a session begins.
 
 Please **write a report** on the performance differences you notices among the above tasks.
 
-# horizontal
+# scale up
+
+running in one docker image, without cache, tested by Gatling
 
 cpus=0.5
 
@@ -35,3 +37,17 @@ cpus=2
 ~~D:\Softwares\Gatling\gatling-charts-highcharts-bundle-3.7.6\results\gatlingtestsimulationonwebpos-20220329141740646\index.html  (seems baned by JD)~~
 
 D:\Softwares\Gatling\gatling-charts-highcharts-bundle-3.7.6\results\gatlingtestsimulationonwebpos-20220329142819937\index.html
+
+# scale out
+
+running in 4 docker images, using haproxy http mode as load balancer, tested by Gatling
+
+> if I don't use cache, 500 ERROR will happen when calling parseJD, and Gatling will fail about 50%~70%.
+> if I use cache on JD::getProducts, 500 ERROR will happen less frequently, but Gatling will fail about 50%.
+
+no cache: D:\Softwares\Gatling\gatling-charts-highcharts-bundle-3.7.6\results\gatlingtestsimulationonwebpos-20220330033306576\index.html
+
+cache: D:\Softwares\Gatling\gatling-charts-highcharts-bundle-3.7.6\results\gatlingtestsimulationonwebpos-20220330035926166\index.html
+
+# session sharing
+
