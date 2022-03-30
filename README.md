@@ -22,17 +22,17 @@ Please **write a report** on the performance differences you notices among the a
 
 # scale up
 
-running in one docker image, without cache, tested by Gatling
+run webpos in one docker image, without cache, tested by Gatling
 
-cpus=0.5
+cpus=0.5:
 
 D:\Softwares\Gatling\gatling-charts-highcharts-bundle-3.7.6\results\gatlingtestsimulationonwebpos-20220329141614920\index.html
 
-cpus=1
+cpus=1:
 
 file:///D:/Softwares/Gatling/gatling-charts-highcharts-bundle-3.7.6/results/gatlingtestsimulationonwebpos-20220329141048198/index.html
 
-cpus=2 
+cpus=2:
 
 ~~D:\Softwares\Gatling\gatling-charts-highcharts-bundle-3.7.6\results\gatlingtestsimulationonwebpos-20220329141740646\index.html  (seems baned by JD)~~
 
@@ -40,7 +40,7 @@ D:\Softwares\Gatling\gatling-charts-highcharts-bundle-3.7.6\results\gatlingtests
 
 # scale out
 
-running in 4 docker images, using haproxy http mode as load balancer, tested by Gatling
+run webpos in 4 docker images, using haproxy http mode as load balancer, tested by Gatling
 
 > if I don't use cache, 500 ERROR will happen when calling parseJD, and Gatling will fail about 50%~70%.
 > if I use cache on JD::getProducts, 500 ERROR will happen less frequently, but Gatling will fail about 50%.
@@ -49,5 +49,15 @@ no cache: D:\Softwares\Gatling\gatling-charts-highcharts-bundle-3.7.6\results\ga
 
 cache: D:\Softwares\Gatling\gatling-charts-highcharts-bundle-3.7.6\results\gatlingtestsimulationonwebpos-20220330035926166\index.html
 
-# session sharing
+# redis
+
+I use redis in docker to handle **cache missing** problem and **session sharing** problem.
+
+1 bitnami-redis server in docker:
+
+D:\Softwares\Gatling\gatling-charts-highcharts-bundle-3.7.6\results\gatlingtestsimulationonwebpos-20220330130625131\index.html
+
+redis cluster (3 masters + 3 slavers) in wsl2:
+
+
 
