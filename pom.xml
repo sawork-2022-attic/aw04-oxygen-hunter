@@ -79,7 +79,7 @@
                 <version>3.2.0</version>
                 <configuration>
                     <to>
-                        <image>webpos-redis</image>
+                        <image>webpos-redis-cluster</image>
                     </to>
                 </configuration>
             </plugin>

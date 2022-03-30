@@ -26,38 +26,50 @@ run webpos in one docker image, without cache, tested by Gatling
 
 cpus=0.5:
 
-D:\Softwares\Gatling\gatling-charts-highcharts-bundle-3.7.6\results\gatlingtestsimulationonwebpos-20220329141614920\index.html
+![](report/images/gatling-cpu-0.5-nocache.png)
 
 cpus=1:
 
-file:///D:/Softwares/Gatling/gatling-charts-highcharts-bundle-3.7.6/results/gatlingtestsimulationonwebpos-20220329141048198/index.html
+![](report/images/gatling-cpu-1-nocache.png)
 
 cpus=2:
 
-~~D:\Softwares\Gatling\gatling-charts-highcharts-bundle-3.7.6\results\gatlingtestsimulationonwebpos-20220329141740646\index.html  (seems baned by JD)~~
+![](report/images/gatling-cpu-2-nocache.png)
 
-D:\Softwares\Gatling\gatling-charts-highcharts-bundle-3.7.6\results\gatlingtestsimulationonwebpos-20220329142819937\index.html
+We can see that as number of cpus increase, response time decrease.
 
 # scale out
 
-run webpos in 4 docker images, using haproxy http mode as load balancer, tested by Gatling
+run webpos in 4 docker images, using haproxy as load balancer, tested by Gatling
 
 > if I don't use cache, 500 ERROR will happen when calling parseJD, and Gatling will fail about 50%~70%.
+> 
 > if I use cache on JD::getProducts, 500 ERROR will happen less frequently, but Gatling will fail about 50%.
 
-no cache: D:\Softwares\Gatling\gatling-charts-highcharts-bundle-3.7.6\results\gatlingtestsimulationonwebpos-20220330033306576\index.html
+no cache: 
 
-cache: D:\Softwares\Gatling\gatling-charts-highcharts-bundle-3.7.6\results\gatlingtestsimulationonwebpos-20220330035926166\index.html
+![](report/images/gatling-haproxy-4-server-nocache.png)
+
+cache: 
+
+![](report/images/gatling-haproxy-4-server-cache.png)
+
+We can see cache accelerates our program.
 
 # redis
 
 I use redis in docker to handle **cache missing** problem and **session sharing** problem.
 
-1 bitnami-redis server in docker:
-
-D:\Softwares\Gatling\gatling-charts-highcharts-bundle-3.7.6\results\gatlingtestsimulationonwebpos-20220330130625131\index.html
+run webpos in 4 docker images, using haproxy as load balancer:
 
 redis cluster (3 masters + 3 slavers) in wsl2:
 
+first time:
 
+![](report/images/gatling-haproxy-4-server-cache-redis-cluster.png)
 
+second time:
+
+![](report/images/gatling-haproxy-4-server-cache-redis-cluster2.png)
+
+It seems that reading cache from redis in wsl is slower than reading resources from JD.
