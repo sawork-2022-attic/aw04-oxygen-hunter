@@ -17,13 +17,22 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class PosController {
 
+    @Autowired
+    private HttpSession session;
+
     private PosService posService;
 
-    private Cart cart;
+    private Cart getCart() {
+        Cart cart = (Cart) session.getAttribute("cart");
+        if (cart == null) {
+            cart = new Cart();
+            saveCart(cart);
+        }
+        return cart;
+    }
 
-    @Autowired
-    public void setCart(Cart cart) {
-        this.cart = cart;
+    private void saveCart(Cart cart) {
+        session.setAttribute("cart", cart);
     }
 
     @Autowired
@@ -36,7 +45,7 @@ public class PosController {
         // 若不存在，手动创建session，防止thymeleaf模板解析失败
         request.getSession(true);
         model.addAttribute("products", posService.products());
-        model.addAttribute("cart", cart);
+        model.addAttribute("cart", getCart());
         return "index";
     }
 
@@ -50,9 +59,9 @@ public class PosController {
 
     @GetMapping("/add")
     public String addByGet(@RequestParam(name = "pid") String pid, Model model) {
-        posService.add(cart, pid, 1);
+        saveCart(posService.add(getCart(), pid, 1));
         model.addAttribute("products", posService.products());
-        model.addAttribute("cart", cart);
+        model.addAttribute("cart", getCart());
         return "index";
     }
 }
